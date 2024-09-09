@@ -57,7 +57,7 @@ const HomeFC: React.FC<{}> = () => {
       setTitle(getValidationTitle(isIbanValid));
       setColor(getTitleColor(isIbanValid));
       setIsButtonVisible(isIbanValid === "valid");
-      setIsListVisible(isIbanValid === "valid");
+      setIsListVisible(true);
       Animated.timing(fadeAnim, {
         toValue: 1,
         duration: 500,
@@ -111,7 +111,6 @@ const HomeFC: React.FC<{}> = () => {
               style={styles.button}
               onPress={() => {
                 setIbanSavedList((prev) => [
-                  ...prev,
                   { iban: iban, id: ibanSavedList.length },
                 ]);
               }}
@@ -127,7 +126,7 @@ const HomeFC: React.FC<{}> = () => {
           )}
           {isListVisible && (
             <FlatList
-              data={mock}
+              data={ibanSavedList}
               style={{ width: "100%", marginTop: 20 }}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
@@ -135,7 +134,7 @@ const HomeFC: React.FC<{}> = () => {
                 return (
                   <CustomText
                     size={"smaller"}
-                    text={item.toString()}
+                    text={item.iban.toString()}
                     weight={500}
                     style={styles.textAlignCenter}
                     color={colors.primary}
